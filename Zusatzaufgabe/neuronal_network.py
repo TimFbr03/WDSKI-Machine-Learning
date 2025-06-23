@@ -17,6 +17,10 @@ class NeuronalNetwork:
     def forward(self, X: np.ndarray) -> np.ndarray | float:
         """
         Performs the forward pass through the neural network.
+        - Dot product of the input Weight and X.T + input bias
+        - Input acctivation using ReLU function
+        - Dot product of output Weight and activated input weight
+        - Output activation using Sigmoid function
 
         Args:
             X (np.ndarray): Input data of shape (n_samples, n_features),
@@ -66,9 +70,14 @@ class NeuronalNetwork:
         self.b2 -= self.lr * db2
 
 
-    def train(self, X: np.ndarray, y: np.ndarray, epochs: int, verbose: bool=True):
+    def train(self, X: np.ndarray, y: np.ndarray, epochs: int, verbose: bool=True) -> None:
         '''
         Fits the Neuronal Network onto the Dataset
+        - Computes the forward pass.
+        - error
+        - backward pass
+        for each iteration 'epochs'
+        Prints out Epoch and Loss
 
         Args:
             X: Numpy Array containing the Coordinates of the Points in the Dataset
@@ -88,7 +97,7 @@ class NeuronalNetwork:
             if verbose and epoch % 100 == 0:
                 print(f"{((epoch/epochs)*100):.2f}%, Epoch {epoch}, Loss: {loss:.4f}", end='\r')
 
-    def predict(self, X):
+    def predict(self, X: np.ndarray) -> np.ndarray:
         '''
             Creates a prediction on a datapoint which class it could be
 
@@ -102,15 +111,24 @@ class NeuronalNetwork:
         y_pred = np.array(y_pred)
         return (y_pred > 0.5).astype(int).flatten()
 
-    def accuracy(self, X, y):
+    def accuracy(self, X: np.ndarray, y: np.ndarray) -> np.ndarray:
         '''
         Evaluates the accuracy of the predictions
+
+        Args:
+            X: np.ndarray with the coordinates of the training data
+            y: np.ndarray containing the class of the training points
+
+        Returns:
+
         '''
         y_pred = self.predict(X)
         return np.mean(y_pred == y)
 
     def info(self):
-
+        """
+        Prints out the weights and bias of the Layers
+        """
         np.set_printoptions(precision=4, suppress=True)
 
         W1 = self.W1
@@ -121,7 +139,7 @@ class NeuronalNetwork:
         rows = max(len(W1), len(b1), len(W2_T), len(b2))
 
         # Column headers
-        print("Model Parameters:")
+        print(f"Model Parameters:")
         print("-" * 120)
         print(f"{'Input Weights (W1)':<30} {'Bias (b1)':<30} {'Output Weights (W2.T)':<30} {'Bias (b2)':<30}")
         print("-" * 120)

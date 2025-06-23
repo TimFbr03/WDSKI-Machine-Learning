@@ -1,4 +1,6 @@
 import numpy as np
+np.random.seed(42)
+
 from neuronal_network import NeuronalNetwork
 
 def make_spiral(n_samples=100):
@@ -17,15 +19,27 @@ def make_spiral(n_samples=100):
 
     return X.T, y[0]
 
+# Netzwerk initialisiern
+input_dimension = 2
+hidden_dimension = 16
+output_dimension = 1
+learnin_rate = 0.0075
+
 if __name__ == "__main__":
     # Daten generieren
     X, y = make_spiral(100)
 
     # Netzwerk initialisieren (Eingabedimension = 2)
-    nn = NeuronalNetwork(input_dim=2, hidden_dim=16, output_dim=1, lr=0.01)
+    nn = NeuronalNetwork(
+        input_dimension,
+        hidden_dimension,
+        output_dimension,
+        learnin_rate
+    )
 
     # Training
-    nn.train(X, y, epochs=10000, verbose=True)
+    nn.train(X, y, epochs=100000, verbose=True)
 
     # Auswertung
     print("Accuracy:", nn.accuracy(X, y))
+    nn.info()
