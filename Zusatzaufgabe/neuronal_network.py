@@ -14,7 +14,7 @@ class NeuronalNetwork:
         self.W2 = np.random.randn(output_dim, hidden_dim) * 0.1
         self.b2 = np.zeros((output_dim, 1))
 
-    def forward(self, X: np.ndarray) -> np.ndarray:
+    def forward(self, X: np.ndarray) -> np.ndarray | float:
         """
         Performs the forward pass through the neural network.
 
@@ -59,11 +59,12 @@ class NeuronalNetwork:
         dW1 = (1 / m) * np.dot(dZ1, X)
         db1 = (1 / m) * np.sum(dZ1, axis=1, keepdims=True)
 
-        # Gradient Descent
+        # Gradient Descent with alpha = lr
         self.W1 -= self.lr * dW1
         self.b1 -= self.lr * db1
         self.W2 -= self.lr * dW2
         self.b2 -= self.lr * db2
+
 
     def train(self, X: np.ndarray, y: np.ndarray, epochs: int, verbose: bool=True):
         '''
@@ -81,7 +82,7 @@ class NeuronalNetwork:
 
         for epoch in range(epochs):
             y_pred = self.forward(X)
-            loss = fn.binary_cross_entropy(self.W1, self.W2, y, y_pred)
+            loss = fn.mean_squared_error(y, y_pred)
             self.backward(X, y)
 
             if verbose and epoch % 100 == 0:
@@ -98,6 +99,7 @@ class NeuronalNetwork:
                 Prediction on the Class
         '''
         y_pred = self.forward(X)
+        y_pred = np.array(y_pred)
         return (y_pred > 0.5).astype(int).flatten()
 
     def accuracy(self, X, y):
@@ -106,3 +108,35 @@ class NeuronalNetwork:
         '''
         y_pred = self.predict(X)
         return np.mean(y_pred == y)
+
+    def info(self):
+
+        np.set_printoptions(precision=4, suppress=True)
+
+        W1 = self.W1
+        b1 = self.b1.flatten()
+        W2_T = self.W2.T
+        b2 = self.b2.flatten()
+
+        rows = max(len(W1), len(b1), len(W2_T), len(b2))
+
+        # Column headers
+        print("Model Parameters:")
+        print("-" * 120)
+        print(f"{'Input Weights (W1)':<30} {'Bias (b1)':<30} {'Output Weights (W2.T)':<30} {'Bias (b2)':<30}")
+        print("-" * 120)
+
+        for i in range(rows):
+            # W1
+            w1_str = " ".join(f"{x:7.4f}" for x in W1[i]) if i < len(W1) else ""
+            # b1
+            b1_str = f"{b1[i]:7.4f}" if i < len(b1) else ""
+            # W2.T
+            w2_str = " ".join(f"{x:7.4f}" for x in W2_T[i]) if i < len(W2_T) else ""
+            # b2
+            b2_str = f"{b2[i]:7.4f}" if i < len(b2) else ""
+
+            print(f"{w1_str:<30} {b1_str:<30} {w2_str:<30} {b2_str:<30}")
+
+
+
