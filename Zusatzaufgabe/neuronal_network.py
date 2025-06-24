@@ -54,12 +54,16 @@ class NeuronalNetwork:
         m = X.shape[0]
         y = y.reshape(1, -1)
 
+        # Error at output
         dZ2 = self.A2 - y
         dW2 = (1 / m) * np.dot(dZ2, self.A1.T)
         db2 = (1 / m) * np.sum(dZ2, axis=1, keepdims=True)
 
+        # Error in the hidden layer
         dA1 = np.dot(self.W2.T, dZ2)
         dZ1 = dA1 * fn.relu(self.Z1, True)
+
+        # Gradient in the hidden layer
         dW1 = (1 / m) * np.dot(dZ1, X)
         db1 = (1 / m) * np.sum(dZ1, axis=1, keepdims=True)
 
@@ -72,10 +76,10 @@ class NeuronalNetwork:
 
     def train(self, X: np.ndarray, y: np.ndarray, epochs: int, verbose: bool=True) -> None:
         '''
-        Fits the Neuronal Network onto the Dataset
-        - Computes the forward pass.
-        - error
-        - backward pass
+        Fits the Neuronal Network onto the Dataset by Computin
+        - forward pass,
+        - error (mean_squared_error),
+        - backward pass,
         for each iteration 'epochs'
         Prints out Epoch and Loss
 
