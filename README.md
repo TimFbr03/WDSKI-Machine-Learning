@@ -6,7 +6,7 @@ To train the neuronal network, for the amount of Epochs, a forward pass, loss, a
 ### Parameters
 ``input_dim:`` Input dimension, in our case 2  
 ``hidden_dim:`` Amount of the neurons in the hidden layer in the neuronal network  
-``output_dim:`` Amount of neurons in the output dimension  
+``output_dim:`` Amount of neurons in the output 
 ``lr:`` Learning rate for the gradient descent
 
 ### Input layer
