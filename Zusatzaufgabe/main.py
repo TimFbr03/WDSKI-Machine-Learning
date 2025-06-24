@@ -23,7 +23,7 @@ def make_spiral(n_samples=100):
 input_dimension = 2
 hidden_dimension = 16
 output_dimension = 1
-learnin_rate = 0.0075
+learnin_rate = 0.01
 
 if __name__ == "__main__":
     # Daten generieren
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     )
 
     # Training
-    nn.train(X, y, epochs=100000, verbose=True)
+    nn.train(X, y, epochs=75000, verbose=True)
 
     # Auswertung
     print("Accuracy:", nn.accuracy(X, y))

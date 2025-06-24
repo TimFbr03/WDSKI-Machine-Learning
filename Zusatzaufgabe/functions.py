@@ -35,15 +35,16 @@ class Functions:
         return np.maximum(0, x)
     
     @staticmethod
-    def mean_squared_error(y_true: np.ndarray | float, y_pred: np.ndarray | float) -> np.float64:
+    def mean_squared_error(y_true: np.ndarray, y_pred: np.ndarray | float) -> np.float64:
         '''
-        Calculates the mean squared error 
+        Calculates the Mean Squared Error (MSE) between the true and predicted values.
 
         Args:
-            y_true:
-            y_pred:
+            y_true: (np.ndarray) Ground truth (correct) target values.
+            y_pred: (np.ndarray) Estimated target values.
+
         Returns:
-            mse:
+            mean_squared_error: (np.float64) The computed mean squared error.
         '''
         mean_squared_error = np.mean((y_true - y_pred) ** 2)
         return mean_squared_error

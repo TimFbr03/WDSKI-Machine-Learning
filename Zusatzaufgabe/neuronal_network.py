@@ -103,17 +103,19 @@ class NeuronalNetwork:
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         '''
-            Creates a prediction on a datapoint which class it could be
+            Creates a prediction to the class of a datapoint based on the 
+            condition of the Neuronal Net
 
             Args:
-                X: np.array with coordinates in the space
+                X: np.array containing input-values, for example points in a 2D-Room
 
             Returns:
-                Prediction on the Class
+                y_pred: Prediction on the Class as a bool, either 0 or 1
         '''
         y_pred = self.forward(X)
         y_pred = np.array(y_pred)
-        return (y_pred > 0.5).astype(int).flatten()
+        y_pred = (y_pred > 0.5).astype(int).flatten()
+        return y_pred
 
     def accuracy(self, X: np.ndarray, y: np.ndarray) -> np.ndarray:
         '''
