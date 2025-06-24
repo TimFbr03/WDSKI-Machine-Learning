@@ -7,7 +7,7 @@ $$
     a^{[2]} = \sigma (W^{[2]} (\phi(W^{[1]} x + b^{[1]})) + b^{[2]})
 $$
   
-Schrittweise umstzung in Python
+Schrittweise umstezung in Python  
 $$
     a^{[1]} = W^{[1]} x + b^{[1]}
 $$
@@ -90,7 +90,7 @@ $$
 ### Gradient Descent
 $$
     \theta^{t+1} \leftarrow \theta^t - \alpha \Delta f(\theta^t)
-$$
+$$  
 with lr (learning rate) = $\alpha$
 ```
     self.W1 -= self.lr * dW1
