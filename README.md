@@ -7,7 +7,7 @@ $$
     a^{[2]} = \sigma (W^{[2]} (\phi(W^{[1]} x + b^{[1]})) + b^{[2]})
 $$
   
-Schrittweise umstezung in Python  
+Schrittweise umsetzung in Python  
 $$
     a^{[1]} = W^{[1]} x + b^{[1]}
 $$
@@ -91,6 +91,7 @@ $$
 $$
     \theta^{t+1} \leftarrow \theta^t - \alpha \Delta f(\theta^t)
 $$  
+
 with lr (learning rate) = $\alpha$
 ```
     self.W1 -= self.lr * dW1
