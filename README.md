@@ -8,6 +8,7 @@ $$
 $$
   
 Schrittweise umsetzung in Python  
+
 $$
     a^{[1]} = W^{[1]} x + b^{[1]}
 $$
